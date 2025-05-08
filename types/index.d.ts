@@ -148,7 +148,7 @@ declare interface BankInfoProps {
   type: "full" | "card";
 }
 
-declare interface HeaderBoxProps {
+ interface HeaderBoxProps {
   type?: "title" | "greeting";
   title: string;
   subtext: string;
