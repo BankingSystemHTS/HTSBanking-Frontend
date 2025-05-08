@@ -1,4 +1,4 @@
-//root layout for main pages that contains side bar
+//auth layout for login, sign up pages
 export default function RootLayout({
    children,
 }: Readonly<{
@@ -6,9 +6,8 @@ export default function RootLayout({
 }>) {
    return (
       <main>
-         Side bar
          {children}
+         {/* image */}
       </main>
    );
 }
-

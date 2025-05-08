@@ -1,3 +1,4 @@
+//outermost layout that wraps entire app
 export const dynamic = 'force-dynamic'
 
 import type { Metadata } from "next";

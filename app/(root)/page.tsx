@@ -1,9 +1,14 @@
+import HeaderBox from '@/components/main/HeaderBox'
 import React from 'react'
 
-const page = () => {
+const Home = () => {
   return (
-    <div>page</div>
+    <section className="home">
+      <div className="home-content">
+        <HeaderBox />
+      </div>
+    </section>
   )
 }
 
-export default page
+export default Home
