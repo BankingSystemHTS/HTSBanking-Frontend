@@ -4,7 +4,7 @@ import { formatAmount } from '@/lib/utils'
 
 const AnimatedCounter = ({ amount }: { amount: number }) => {
   return (
-    <div className="w-full">
+    <div>
       <CountUp
         end={amount}
         duration={2}
