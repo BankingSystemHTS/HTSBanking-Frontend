@@ -20,6 +20,8 @@ declare type SignUpParams = {
   password: string;
 };
 
+
+
 declare type LoginUser = {
   email: string;
   password: string;
@@ -218,7 +220,7 @@ declare interface RightSidebarProps {
   banks: Bank[] & Account[];
 }
 
-declare interface SiderbarProps {
+declare interface SidebarProps {
   user: User;
 }
 
