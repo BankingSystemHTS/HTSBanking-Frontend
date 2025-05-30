@@ -3,6 +3,7 @@ import HeaderBox from '@/components/main/HeaderBox'
 import React from 'react'
 import { usePathname } from 'next/navigation'
 import TotalBalanceBox from '@/components/main/TotalBalanceBox'
+import RightSidebar from '@/components/sidebar/RightSidebar'
 
 const Home = () => {
   const pathname = usePathname()
@@ -25,7 +26,13 @@ const Home = () => {
             totalCurrentBalance={1250.14}
           />
         </header>
+        Recent Transaction
       </div>
+      <RightSidebar
+        user={loggedIn}
+        transactions={[]}
+        banks={[]}
+      />
     </section>
   )
 }
