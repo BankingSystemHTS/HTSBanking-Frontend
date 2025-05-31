@@ -8,7 +8,7 @@ import RightSidebar from '@/components/sidebar/RightSidebar'
 const Home = () => {
   const pathname = usePathname()
   // mock user
-  const loggedIn = { name: "Nathan" }
+  const loggedIn = { firstName: "Nathan", lastName:"Chan", email: "nathan109@gmail.com"}
   return (
     <section className="home">
       <div className="home-content">
@@ -16,7 +16,7 @@ const Home = () => {
           <HeaderBox
             type="greeting"
             title="Welcome, "
-            user={loggedIn?.name || "Guest"}
+            user={loggedIn?.firstName || "Guest"}
             subtext="Access and manage your account and 
             transactions efficiently."
           />
