@@ -107,11 +107,14 @@
 
   /* Home */
   .home {
-    @apply no-scrollbar flex w-full flex-row max-xl:max-h-screen max-xl:overflow-y-scroll;
+    @apply no-scrollbar flex w-full flex-row 
+    max-xl:max-h-screen max-xl:overflow-y-scroll;
   }
 
   .home-content {
-    @apply no-scrollbar flex w-full flex-1 flex-col gap-8 px-5 sm:px-8 py-7 lg:py-12 xl:max-h-screen xl:overflow-y-scroll;
+    @apply no-scrollbar flex w-full flex-1
+     flex-col gap-8 px-5 sm:px-8 py-7 
+     lg:py-12 xl:max-h-screen xl:overflow-y-scroll;
   }
 
   .home-header {
@@ -164,7 +167,8 @@
   }
 
   .profile-banner {
-    @apply h-[120px] w-full bg-gradient-mesh bg-cover bg-no-repeat;
+    @apply h-[120px] w-full bg-gradient-mesh bg-cover
+     bg-no-repeat;
   }
 
   .profile {

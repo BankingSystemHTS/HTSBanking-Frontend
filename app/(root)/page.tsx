@@ -28,11 +28,14 @@ const Home = () => {
         </header>
         Recent Transaction
       </div>
+
+      {/* Right sidebar belongs to home page only*/}
       <RightSidebar
         user={loggedIn}
         transactions={[]}
         banks={[]}
       />
+      
     </section>
   )
 }
