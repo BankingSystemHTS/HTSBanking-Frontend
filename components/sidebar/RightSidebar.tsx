@@ -2,6 +2,7 @@ import React from 'react'
 import { Button } from '../ui/button'
 import Link from 'next/link'
 import Image from 'next/image'
+import BankCard from '@/components/sidebar/BankCard'
 
 const RightSidebar = ({ user, transactions, banks}: RightSidebarProps) => {
   return (
@@ -21,9 +22,9 @@ const RightSidebar = ({ user, transactions, banks}: RightSidebarProps) => {
            </div>
         </section>
 
-        {/* Bank Card Section */}
-        <section className="w-full ml-6">
-           <div className="flex">
+        {/* Add Bank and Bank Card Section */}
+        <section className="banks">
+           <div className="flex w-full justify-between">
               <h2 className="text-lg">My Banks</h2>
               <Link href="/" className="ml-24 flex gap-2 items-center hover:underline hover:decoration-blue-500">
                  <Image
@@ -35,6 +36,30 @@ const RightSidebar = ({ user, transactions, banks}: RightSidebarProps) => {
                  <span className="text-slate-700">Add Bank</span>
               </Link>
            </div>
+
+           {banks?.length > 0 && (
+              <div className="relative mt-8 mr-2 flex flex-1 flex-col
+              items-center justify-center gap-5">
+                 <div className="relative z-10">
+                    <BankCard
+                       key={banks[0].$id}
+                       account={banks[0]}
+                       userName={`${user.firstName} ${user.lastName}`}
+                       showBalance={false}
+                     />
+                 </div>
+                 {banks[1] && (
+                    <div className="absolute right-0 top-8 z-0 w-[90%]">
+                       <BankCard
+                          key={banks[1].$id}
+                          account={banks[1]}
+                          userName={`${user.firstName} ${user.lastName}`}
+                          showBalance={false}
+                       />
+                    </div>
+                 )}
+              </div>
+           )}
         </section>
     </aside>
   )
