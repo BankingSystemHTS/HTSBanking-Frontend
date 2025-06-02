@@ -24,7 +24,7 @@ import { Loader } from 'lucide-react'
 
 const AuthForm = ({ type }: { type: string }) => {
    const [user, setUser] = useState(null);
-   const [isLoading, setisLoading] = useState(false);
+   const [isLoading, setIsLoading] = useState(false);
 
    const formSchema = authFormSchema(type);
 
@@ -34,14 +34,25 @@ const AuthForm = ({ type }: { type: string }) => {
    })
 
    //On submit handler
-   function onSubmit(values: z.infer<typeof formSchema>) {
+   const onSubmit = async (data: z.infer<typeof formSchema>) =>{
       // values will be type safe and validated here
-      setisLoading(true);
-      // Simulate an API call 2 seconds delay
-      setTimeout(() => {
-         console.log(values)
-         setisLoading(false);
-      }, 400);
+      setIsLoading(true);
+      try {
+         //Sign up with Appwrite & create plaid token
+         if (type === 'sign-up') {
+            const userData = {
+               firstName: data.firstName,
+            }
+         }
+         if (type === 'sign-in') {
+            
+         }
+      } catch (error) {
+         
+      } finally {
+         setIsLoading(false);
+      }
+      
    }
    return (
       <section className="auth-form">
@@ -106,7 +117,13 @@ const AuthForm = ({ type }: { type: string }) => {
                                  name="address"
                                  label="Address"
                                  placeholder="Enter your address"
-                              />
+                           />
+                           <CustomInput
+                              control={form.control}
+                              name="city"
+                              label="City"
+                              placeholder="Enter your city"
+                           />
                            <div className="grid grid-cols-2 gap-5">
                               <CustomInput
                                  control={form.control}
