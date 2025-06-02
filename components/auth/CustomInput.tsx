@@ -1,8 +1,33 @@
 import React from 'react'
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
 import { Input } from '../ui/input'
+import { Control, Form } from 'react-hook-form'
+import { z } from 'zod'
 
-const CustomInput = ({ form, control, name, label, placeholder }
+// For both login and sign up forms, we can use a single schema
+export const formSchema = z.object({
+   // Fields for sign up only
+   firstName: z.string().optional(),
+   lastName: z.string().optional(),
+   address: z.string().optional(),
+   state: z.string().optional(),
+   postalCode: z.string().optional(),
+   dob: z.string().optional(),
+   ssn: z.string().optional(),
+
+   // Fields for both login and sign up
+   email: z.string().email("Invalid email address"),
+   password: z.string().min(6, "Password must at least 6 characters").max(25, "Password must be at most 25 characters"),
+})
+
+interface CustomInput {
+   name: string,
+   control: Control<z.infer<typeof formSchema>>,
+   label: string,
+   placeholder?: string,
+}
+
+const CustomInput = ({control, name, label, placeholder }: CustomInput
 ) => {
    return (
       <FormField

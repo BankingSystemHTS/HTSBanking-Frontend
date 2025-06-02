@@ -17,23 +17,9 @@ import {
    FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import CustomInput from './CustomInput'
+import CustomInput, { formSchema } from './CustomInput'
 
-// For both login and sign up forms, we can use a single schema
-const formSchema = z.object({
-   // Fields for sign up only
-   firstName: z.string().optional(),
-   lastName: z.string().optional(),
-   address: z.string().optional(),
-   state: z.string().optional(),
-   postalCode: z.string().optional(),
-   dob: z.string().optional(),
-   ssn: z.string().optional(),
 
-   // Fields for both login and sign up
-   email: z.string().email("Invalid email address"),
-   password: z.string().min(6, "Password must at least 6 characters").max(25, "Password must be at most 25 characters"),
-})
 
 const AuthForm = ({ type }: { type: string }) => {
    const [user, setUser] = useState(null);
@@ -94,14 +80,12 @@ const AuthForm = ({ type }: { type: string }) => {
                         <>
                            <div className="flex justify-between">
                               <CustomInput
-                                 form={form}
                                  control={form.control}
                                  name="firstName"
                                  label="First Name"
                                  placeholder="ex: Joe"
                               />
                               <CustomInput
-                                 form={form}
                                  control={form.control}
                                  name="lastName"
                                  label="Last Name"
@@ -109,7 +93,6 @@ const AuthForm = ({ type }: { type: string }) => {
                               />
                            </div>
                               <CustomInput
-                                 form={form}
                                  control={form.control}
                                  name="address"
                                  label="Address"
@@ -117,28 +100,24 @@ const AuthForm = ({ type }: { type: string }) => {
                               />
                            <div className="grid grid-cols-2 gap-5">
                               <CustomInput
-                                 form={form}
                                  control={form.control}
                                  name="state"
                                  label="State"
                                  placeholder="ex: CA"
                               />
                               <CustomInput
-                                 form={form}
                                  control={form.control}
                                  name="postalCode"
                                  label="Postal Code"
                                  placeholder="ex: 11011"
                               />
                               <CustomInput
-                                 form={form}
                                  control={form.control}
                                  name="dob"
                                  label="Date of Birth"
                                  placeholder="yyy-mmm-dd"
                               />
                               <CustomInput
-                                 form={form}
                                  control={form.control}
                                  name="ssn"
                                  label="SSN"
@@ -149,14 +128,12 @@ const AuthForm = ({ type }: { type: string }) => {
                      )}
                      {/* Common fields for both login and sign up */}
                      <CustomInput
-                        form={form}
                         control={form.control}
                         name="email"
                         label="Email"
                         placeholder="Enter your email"
                      />
                      <CustomInput
-                        form={form}
                         control={form.control}
                         name="password"
                         label="Password"
