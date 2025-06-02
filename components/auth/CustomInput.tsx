@@ -21,8 +21,8 @@ export const formSchema = z.object({
 })
 
 interface CustomInput {
-   name: string,
    control: Control<z.infer<typeof formSchema>>,
+   name: "firstName" | "lastName" | "address" | "state" | "postalCode" | "dob" | "ssn" | "email" | "password",
    label: string,
    placeholder?: string,
 }
@@ -32,7 +32,7 @@ const CustomInput = ({control, name, label, placeholder }: CustomInput
    return (
       <FormField
          control={control}
-         name="password"
+         name={name}
          render={({ field }) => (
             <FormItem>
                <FormLabel>{label}</FormLabel>
