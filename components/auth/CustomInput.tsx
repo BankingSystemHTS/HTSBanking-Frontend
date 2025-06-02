@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
 import { Input } from '../ui/input'
-import { Control, Form } from 'react-hook-form'
+import { Control, FieldPath, Form } from 'react-hook-form'
 import { z } from 'zod'
 
 // For both login and sign up forms, we can use a single schema
@@ -22,7 +22,7 @@ export const formSchema = z.object({
 
 interface CustomInput {
    control: Control<z.infer<typeof formSchema>>,
-   name: "firstName" | "lastName" | "address" | "state" | "postalCode" | "dob" | "ssn" | "email" | "password",
+   name: FieldPath<z.infer<typeof formSchema>>,
    label: string,
    placeholder?: string,
 }
@@ -37,7 +37,12 @@ const CustomInput = ({control, name, label, placeholder }: CustomInput
             <FormItem>
                <FormLabel>{label}</FormLabel>
                <FormControl>
-                  <Input placeholder={placeholder} {...field} />
+                  <Input
+                     placeholder={placeholder}
+                     className="input-class"
+                     type={name === "password" ? "password" : "text"}
+                     {...field}
+                  />
                </FormControl>
                <FormMessage className="form-message" />
             </FormItem>
