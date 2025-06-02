@@ -17,12 +17,16 @@ import {
    FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import CustomInput, { formSchema } from './CustomInput'
+import CustomInput, { authFormSchema } from './CustomInput'
+import { Loader } from 'lucide-react'
 
 
 
 const AuthForm = ({ type }: { type: string }) => {
    const [user, setUser] = useState(null);
+   const [isLoading, setisLoading] = useState(false);
+
+   const formSchema = authFormSchema(type);
 
    // Initialize form with react-hook-form
    const form = useForm<z.infer<typeof formSchema>>({
@@ -32,7 +36,12 @@ const AuthForm = ({ type }: { type: string }) => {
    //On submit handler
    function onSubmit(values: z.infer<typeof formSchema>) {
       // values will be type safe and validated here
-      console.log(values)
+      setisLoading(true);
+      // Simulate an API call 2 seconds delay
+      setTimeout(() => {
+         console.log(values)
+         setisLoading(false);
+      }, 400);
    }
    return (
       <section className="auth-form">
@@ -140,12 +149,41 @@ const AuthForm = ({ type }: { type: string }) => {
                         placeholder="Enter your password"
                      />
                      <div className="flex justify-center">
-                        <Button variant="outline" type="submit" className="w-full bg-blue-500 text-white font-semibold hover:bg-sky-700">
-                           Submit
+                        <Button
+                           variant="outline"
+                           type="submit"
+                           className="w-full bg-blue-500 text-white font-semibold 
+                           hover:bg-sky-700"
+                           disabled={isLoading}
+                        >
+                           {isLoading ? (
+                              <div className="flex gap-2">
+                                 <Loader size="20" />
+                                 Loading...
+                              </div>
+                           ) : (
+                              <div>Submit</div>
+                           )}
                         </Button>
                      </div>
                   </form>
                </Form>
+
+               <footer className="flex justify-center gap-2">
+                  <p>{type == 'sign-up' ? "Don't have an account?": "Already have an account?"}</p>
+                  {type === 'sign-up' ? (
+                     <Link
+                        href="/sign-in"
+                        className="text-blue-500"
+                     >
+                        Login
+                     </Link>
+                  ) : (
+                        <Link href="/sign-up" className="text-blue-500">
+                           Sign Up
+                        </Link>
+                  )}
+               </footer>
             </>
          }
 
