@@ -19,6 +19,7 @@ import {
 import { Input } from "@/components/ui/input"
 import CustomInput, { authFormSchema } from './CustomInput'
 import { Loader } from 'lucide-react'
+import { signUp, signIn } from '@/lib/actions/user.actions'
 
 
 
@@ -40,12 +41,14 @@ const AuthForm = ({ type }: { type: string }) => {
       try {
          //Sign up with Appwrite & create plaid token
          if (type === 'sign-up') {
-            const userData = {
-               firstName: data.firstName,
-            }
+            const newUser = await signUp(data);
+            setUser(newUser);
          }
          if (type === 'sign-in') {
-            
+            const response = await signIn(data)
+            if (response.success) {
+               setUser(response.user);
+            }
          }
       } catch (error) {
          

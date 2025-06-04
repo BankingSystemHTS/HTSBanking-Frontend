@@ -1,9 +1,10 @@
 import LeftSideBar from "@/components/sidebar/LeftSideBar";
 import MobileNavBar from "@/components/sidebar/MobileNavBar";
+import { getLoggedInUser } from "@/lib/actions/user.actions";
 import Image from "next/image";
 
 //root layout for main pages that contains side bar
-export default function RootLayout({
+export default async function RootLayout({
    children,
 }: Readonly<{
    children: React.ReactNode;
