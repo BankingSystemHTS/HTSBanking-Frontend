@@ -1,14 +1,13 @@
-'use client'
 import HeaderBox from '@/components/main/HeaderBox'
 import React from 'react'
 import { usePathname } from 'next/navigation'
 import TotalBalanceBox from '@/components/main/TotalBalanceBox'
 import RightSidebar from '@/components/sidebar/RightSidebar'
+import { getLoggedInUser } from '@/lib/actions/user.actions'
 
-const Home = () => {
-  const pathname = usePathname()
-  // mock user
-  const loggedIn = { firstName: "Nathan", lastName:"Chan", email: "nathan109@gmail.com"}
+const Home = async () => {
+
+  const loggedIn = await getLoggedInUser();
   return (
     <section className="home">
       <div className="home-content">
@@ -16,7 +15,7 @@ const Home = () => {
           <HeaderBox
             type="greeting"
             title="Welcome, "
-            user={loggedIn?.firstName || "Guest"}
+            user={loggedIn?.name || "Guest"}
             subtext="Access and manage your account and 
             transactions efficiently."
           />

@@ -58,6 +58,12 @@ const LeftSideBar = ({ user }: SidebarProps) => {
                )
             })}
             User
+            <Link
+               href="/sign-in"
+               className="sidebar-link text-gray-700"
+            >
+               Logout
+            </Link>
          </nav>
          Footer1
       </section>

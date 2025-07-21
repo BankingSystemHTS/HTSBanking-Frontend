@@ -2,25 +2,25 @@
 import { cookies } from "next/headers";
 import { Account, Client, Databases, Users } from "node-appwrite";
 
+//should create a new client for each request made to the appwrite 
+//read session cookies from each request and set it to the client
 export async function createSessionClient() {
   const client = new Client()
     .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT!)
     .setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT!);
 
   const sessionCookies = await cookies();
-  const session = await sessionCookies.get("my_session");
-  if (!session || !session.value) {
+  const session = sessionCookies.get("my_session");
+  if (!session?.value) {
     throw new Error("Session not found");
   }
   client.setSession(session.value);
   return {
-    get account() {
-      return new Account(client);
-    },
+    account: new Account(client),
   };
 }
 
-//used to create a new session for sign up and login
+//only used to perform admin actions, create a new session for sign up and login
 export async function createAdminClient() {
   const client = new Client()
     .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT!)
@@ -39,12 +39,3 @@ export async function createAdminClient() {
   };
 }
 
-export async function getLoggedInUser() {
-  try {
-    const { account } = await createSessionClient();
-    return await account.get();
-  } catch (error) {
-    console.error("Error fetching logged in user:", error);
-    return null; // or handle the error as needed
-  }
-}

@@ -9,6 +9,7 @@ export default async function RootLayout({
 }: Readonly<{
    children: React.ReactNode;
 }>) {
+   // const user = await getLoggedInUser();
    const loggedIn = { fistName: "Nathan", lastName: "Smith" };
    return (
       <main className="flex h-screen w-full font-inter">
