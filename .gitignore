@@ -20,3 +20,5 @@ npm-debug.log*
 .env.local
 .env.development
 .env.production
+# Sentry Config File
+.env.sentry-build-plugin
