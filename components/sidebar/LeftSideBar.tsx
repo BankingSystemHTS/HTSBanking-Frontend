@@ -5,6 +5,9 @@ import Image from 'next/image'
 import { sidebarLinks } from '@/constants'
 import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
+import { Button } from '../ui/button'
+import { signOut } from '@/lib/actions/user.actions'
+import Footer from './Footer'
 
 const LeftSideBar = ({ user }: SidebarProps) => {
    const pathname = usePathname()
@@ -48,25 +51,23 @@ const LeftSideBar = ({ user }: SidebarProps) => {
                            className={clsx(isActive && "brightness-[3] invert-0")}
                         />
                      </div>
-                        <span className={clsx("text-16 font-semibold text-gray-700",
-                           isActive && "text-white"
-                        )}>
-                           {link.label}
-                        </span>
+                     <span className={clsx("text-16 font-semibold text-gray-700",
+                        isActive && "text-white"
+                     )}>
+                        {link.label}
+                     </span>
 
                   </Link>
                )
             })}
             User
-            <Link
-               href="/sign-in"
-               className="sidebar-link text-gray-700"
-            >
-               Logout
-            </Link>
+
          </nav>
-         Footer1
-      </section>
+         <Footer
+            user={user}
+         />
+
+      </section >
    )
 }
 

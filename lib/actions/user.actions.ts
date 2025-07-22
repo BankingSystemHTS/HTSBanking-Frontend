@@ -70,14 +70,18 @@ export async function getLoggedInUser() {
 }
 
 export async function signOut() {
-  const sessionClient = await createSessionClient();
-  if (!sessionClient) {
-    console.error("No session client found. User may not be logged in.");
-    return;
-  }
-  const sessionCookies = await cookies();
-  sessionCookies.delete("my_session");
-  await sessionClient.account.deleteSession("current");
+  try {
+    const sessionClient = await createSessionClient();
+    if (!sessionClient) {
+      console.error("No session client found. User may not be logged in.");
+      return;
+    }
+    const sessionCookies = await cookies();
+    sessionCookies.delete("my_session");
+    await sessionClient.account.deleteSession("current");
 
+  } catch (error) {
+    console.error("Error signing out:", error);
+  }
   redirect("/sign-in");
 }

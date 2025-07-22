@@ -9,8 +9,7 @@ export default async function RootLayout({
 }: Readonly<{
    children: React.ReactNode;
 }>) {
-   // const user = await getLoggedInUser();
-   const loggedIn = { fistName: "Nathan", lastName: "Smith" };
+   const loggedIn = await getLoggedInUser();
    return (
       <main className="flex h-screen w-full font-inter">
          <LeftSideBar
@@ -26,7 +25,7 @@ export default async function RootLayout({
                   alt="logo"
                />
                <div>
-                  <MobileNavBar />
+                  <MobileNavBar user={loggedIn} />
                </div>
             </div>
             {children}

@@ -27,7 +27,7 @@ declare type LoginUser = {
   password: string;
 };
 
-declare type User = {
+declare type  User = {
   $id: string;
   email: string;
   userId: string;
