@@ -1,3 +1,5 @@
+import { signOut } from '@/lib/actions/user.actions'
+import { redirect } from 'next/navigation'
 import Image from 'next/image'
 import React from 'react'
 
@@ -8,6 +10,14 @@ interface FooterProps {
 }
 
 const Footer = ({ user, type = 'desktop' }: FooterProps) => {
+   const handleLogOut = async () => {
+      try {
+         await signOut();
+         redirect("/sign-in");
+      } catch (error) {
+         console.error("Error during logout:", error);
+      }
+   }
    return (
       <footer className="footer">
          <div className={type === "mobile"
@@ -29,7 +39,7 @@ const Footer = ({ user, type = 'desktop' }: FooterProps) => {
                {user?.email}
             </p>
          </div>
-         <div className="footer_image">
+         <div className="footer_image" onClick={handleLogOut}>
             <Image
                src="/icons/logout.svg"
                fill
