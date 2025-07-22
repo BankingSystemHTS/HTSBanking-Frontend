@@ -10,14 +10,13 @@ export const signIn = async ({ email, password }: signInProps) => {
     //mutation / database / make fetch
     const { account } = await createAdminClient(); 
     const session = await account.createEmailPasswordSession(email, password);
-
     //set cookies
     const cookieStore = await cookies();
     cookieStore.set("my_session", session.secret, {
-      path: '/',
+      path: "/",
       httpOnly: true,
-      secure: true,
       sameSite: "strict",
+      // secure: true,
     })
     return parseStringify(session);
   } catch (error) {
@@ -46,7 +45,7 @@ export const signUp = async (userData: SignUpParams) => {
       path: "/",
       httpOnly: true,
       sameSite: "strict",
-      secure: true,
+      // secure: true,
     });
   } catch (error) {
     console.log(error);

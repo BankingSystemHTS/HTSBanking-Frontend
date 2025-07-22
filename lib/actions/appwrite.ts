@@ -11,12 +11,14 @@ export async function createSessionClient() {
 
   const sessionCookies = await cookies();
   const session = sessionCookies.get("my_session");
-  if (!session?.value) {
-    throw new Error("Session not found");
+  if (!session || !session.value) {
+    throw new Error("No Session found");
   }
   client.setSession(session.value);
   return {
-    account: new Account(client),
+    get account() {
+      return new Account(client);
+    }  
   };
 }
 
@@ -25,7 +27,7 @@ export async function createAdminClient() {
   const client = new Client()
     .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT!)
     .setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT!)
-    .setKey(process.env.NEXT_APPWRITE_KEY ?? "");
+    .setKey(process.env.NEXT_APPWRITE_KEY!);
   return {
     get account() {
       return new Account(client);

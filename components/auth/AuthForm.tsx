@@ -48,14 +48,22 @@ const AuthForm = ({ type }: { type: string }) => {
             router.push("/")
          }
          if (type === 'sign-in') {
+            // await fetch("/api/sign-in", {
+            //    method: 'POST',
+            //    headers: {
+            //       'Content-Type': 'application/json'
+            //    },
+            //    body: JSON.stringify({
+            //       email: data.email,
+            //       password: data.password
+            //    })
+            // })
             const response = await signIn({
                email: data.email,
                password: data.password,
             })
-            if (response) {
-               console.log("User signed in successfully:", response);
-               router.push("/")
-            }
+
+            if (response) router.push('/')
          }
       } catch (error) {
          console.error("Error during authentication:", error);
