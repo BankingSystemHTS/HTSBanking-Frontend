@@ -3,7 +3,7 @@ import { Button } from '../ui/button'
 import { PlaidLinkOnSuccess, PlaidLinkOptions, usePlaidLink } from 'react-plaid-link'
 import { StyledString } from 'next/dist/build/swc/types'
 import { useRouter } from 'next/navigation'
-import { createLinkToken } from '@/lib/actions/user.actions'
+import { createLinkToken, exchangePublicToken } from '@/lib/actions/user.actions'
 
 interface PlaidLinkProps {
    user: User,
@@ -19,12 +19,13 @@ const PlaidLink = ({ user, variant }: PlaidLinkProps) => {
       }
       getLinkToken();
    }, [])
+   //plaid calls onSuccess when the user successfully connects their bank account
    const onSuccess = useCallback<PlaidLinkOnSuccess>(async (
-      public_token: String) => {
-      // await exchangePublicToken({
-      //    publicToken: public_token,
-      //    user,
-      // })
+      public_token: string) => {
+      await exchangePublicToken({
+         publicToken: public_token,
+         user: user
+      })
       router.push('/')
    }, [user])
    const config: PlaidLinkOptions = {
