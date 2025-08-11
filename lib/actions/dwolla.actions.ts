@@ -1,26 +1,5 @@
 "use server"
-import { Client } from "dwolla-v2";
-
-const getEnvironment = () => {
-   const env = process.env.DWOLLA_ENV as string;
-   switch (env) {
-      case "sandbox":
-         return "sandbox";
-      case "production":
-         return "production";
-      default:
-         throw new Error(
-            "Dwolla environment should either be set to 'sandbox' or 'production'"
-         );
-   }
-
-}
-const dwollaClient = new Client({
-   environment: getEnvironment(),
-   key: process.env.DWOLLA_KEY as string,
-   secret: process.env.DWOLLA_SECRET as string,
-});
-
+import { dwollaClient } from "./plaid"
 
 // Create a Dwolla Funding Source using a Plaid Processor Token
 export const createFundingSource = async (

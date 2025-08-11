@@ -47,7 +47,7 @@ const AuthForm = ({ type }: { type: string }) => {
             const userData = {
                firstName: data.firstName!,
                lastName: data.lastName!,
-               address: data.address!,
+               address1: data.address!,
                city: data.city!,
                state: data.state!,
                postalCode: data.postalCode!,
@@ -59,7 +59,7 @@ const AuthForm = ({ type }: { type: string }) => {
             }
             const newUser = await signUp(userData);
             setUser(newUser);
-            router.push("/")
+            
          }
          if (type === 'sign-in') {
             // await fetch("/api/sign-in", {
@@ -118,11 +118,11 @@ const AuthForm = ({ type }: { type: string }) => {
             </div>
          </header>
 
-         {/* {user ? ( */}
+         {user ? ( 
             <div className="flex flex-col  gap-4">
                <PlaidLink user={user}  variant='primary' />
             </div>
-         {/* ) : */}
+         ) :
             <>
                {/* shadcn form */}
                <Form {...form}>
@@ -234,7 +234,7 @@ const AuthForm = ({ type }: { type: string }) => {
                   )}
                </footer>
             </>
-         {/* } */}
+         } 
 
       </section>
    )
