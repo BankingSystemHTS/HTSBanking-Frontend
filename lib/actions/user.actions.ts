@@ -4,6 +4,8 @@ import { createAdminClient, createSessionClient } from "./appwrite";
 import { Account, Client, ID } from "node-appwrite";
 import { parseStringify } from "../utils";
 import { redirect } from "next/navigation";
+import { CountryCode, Products } from "plaid";
+import { plaidClient } from "./plaid";
 
 export const signIn = async ({ email, password }: signInProps) => {
   try {
@@ -84,4 +86,43 @@ export async function signOut() {
     console.error("Error signing out:", error);
   }
   redirect("/sign-in");
+}
+
+
+export const createLinkToken = async (user: User) => {
+  try {
+    const tokenParam = {
+      user: {
+        client_user_id: user.$id
+      },
+      client_name: user.name,
+      products: ['auth'] as Products[],
+      language: 'en',
+      country_codes: ['US'] as CountryCode[],
+
+    }
+    const response = await plaidClient.linkTokenCreate(tokenParam);
+    return parseStringify(response.data.link_token)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const exchangePublicToken = async (public_token: string, user: User) => {
+  try {
+    const response = await plaidClient.itemPublicTokenExchange({
+      public_token: public_token,
+    })
+    const accessToken = response.data.access_token;
+    const itemId = response.data.item_id;
+
+    const account = await plaidClient.accountsGet({ access_token: accessToken })
+    const accountData = account.data.accounts[0];
+
+    //Create a processor token for Dwolla using the access token and account ID
+    
+  } catch (error) {
+    console.error("An error occured while creating exchange token:",
+      error);
+  }
 }
